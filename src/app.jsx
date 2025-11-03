@@ -6,7 +6,7 @@ import Cadastro from './pages/Cadastro'
 function App() {
   return (
     <Routes>
-      <Route path="/APSWEBFRONT" element={<Login />}/>
+      <Route path="/" element={<Login />}/>
       <Route path="/cadastro" element={<Cadastro />} />
       <Route path="/consulta" element={<Consulta />} />
     </Routes>
