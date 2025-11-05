@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import api from "../../services/api"; // o mesmo axios que você usa nas outras páginas
+import api from "../../services/api";
 import { useNavigate } from "react-router-dom";
 
 function Login() {

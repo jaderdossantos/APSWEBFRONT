@@ -1,7 +1,9 @@
 import { useState, useRef } from "react";
 import api from "../../services/api";
+import { useNavigate } from "react-router-dom";
 
 function Consulta() {
+  const navigate = useNavigate();
   const [emailBusca, setEmailBusca] = useState("");
   const [usuario, setUsuario] = useState(null);
   const [mensagem, setMensagem] = useState("");
@@ -23,7 +25,7 @@ function Consulta() {
       const resposta = await api.get(`/usuarios?email=${emailBusca}`);
       setUsuario(resposta.data);
       setMensagem("");
-      setEditarUsuario(false); // garante que o formulário não abra automaticamente
+      setEditarUsuario(false);
     } catch (error) {
       console.error(error);
       if (error.response && error.response.status === 404) {
@@ -89,22 +91,45 @@ function Consulta() {
         <div className="cartao">
           {editarUsuario ? (
             <>
-              <input defaultValue={usuario.nome} ref={inputNome} placeholder="Nome" />
-              <input defaultValue={usuario.email} ref={inputEmail} placeholder="E-mail" />
+              <input
+                defaultValue={usuario.nome}
+                ref={inputNome}
+                placeholder="Nome"
+              />
+              <input
+                defaultValue={usuario.email}
+                ref={inputEmail}
+                placeholder="E-mail"
+              />
               <input type="password" ref={inputSenha} placeholder="Senha" />
               <button onClick={salvarEdicao}>Salvar</button>
               <button onClick={() => setEditarUsuario(false)}>Cancelar</button>
             </>
           ) : (
             <>
-              <p><strong>Nome:</strong> {usuario.nome}</p>
-              <p><strong>E-mail:</strong> {usuario.email}</p>
+              <p>
+                <strong>Nome:</strong> {usuario.nome}
+              </p>
+              <p>
+                <strong>E-mail:</strong> {usuario.email}
+              </p>
               <button onClick={() => setEditarUsuario(true)}>Editar</button>
               <button onClick={deletarUsuario}>Deletar</button>
             </>
           )}
         </div>
       )}
+
+      <div>
+        <button onClick={() => navigate("/cadastro-manga")}>
+          Cadastrar Mangá
+        </button>
+      </div>
+      <div>
+        <button onClick={() => navigate("/cadastro-musica")}>
+          Cadastrar Música
+        </button>
+      </div>
     </div>
   );
 }
